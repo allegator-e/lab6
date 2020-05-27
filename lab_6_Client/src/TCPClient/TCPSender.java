@@ -14,33 +14,33 @@ import java.util.ArrayList;
 public class TCPSender {
 
     private Flat flat;
-    private NewFlat a = new NewFlat();
-    private String script;
+    private NewFlat new_flat = new NewFlat();
     private int key;
+    private String script;
     private Transport transport;
     private InetSocketAddress is;
     private SocketChannel ssChannel;
     private ObjectOutputStream oos;
-    private boolean b;
+    private boolean if_correct_command;
     private ArrayList<File> scripts = new ArrayList<>();
 
     public TCPSender(InetSocketAddress is) {
         this.is = is;
     }
 
-    private void LocalOpen() throws IOException {
+    private void localOpen() throws IOException {
         ssChannel = SocketChannel.open(is);
         oos = new ObjectOutputStream(ssChannel.socket().getOutputStream());
     }
 
-    public boolean Sender(String[] command) throws IOException {
-        TCPReceiver r = new TCPReceiver(is);
+    public boolean sender(String[] command) throws IOException {
+        TCPReceiver receiver = new TCPReceiver(is);
         if (command[0].equals("insert") || command[0].equals("update")) {
             if (command.length == 2) {
                 try {
                     key = Integer.parseInt(command[1]);
-                    flat = a.newFlat();
-                    LocalOpen();
+                    flat = new_flat.newFlat();
+                    localOpen();
                     oos.writeObject(command[0] + " " + command[1]);
                     oos.writeObject(flat);
                     oos.close();
@@ -50,8 +50,8 @@ public class TCPSender {
                 }
             } else System.out.println("Комманда некорректна.");
         } else if (command[0].equals("remove_greater")) {
-            flat = a.newFlat();
-            LocalOpen();
+            flat = new_flat.newFlat();
+            localOpen();
             oos.writeObject(command[0]);
             oos.writeObject(flat);
             oos.close();
@@ -60,7 +60,7 @@ public class TCPSender {
             if (command.length == 2) {
                 try {
                     key = Integer.parseInt(command[1]);
-                    LocalOpen();
+                    localOpen();
                     oos.writeObject(command[0]);
                     oos.writeObject(key);
                     oos.close();
@@ -74,7 +74,7 @@ public class TCPSender {
             if (command.length == 2) {
                 try {
                     transport = Transport.valueOf(command[1]);
-                    LocalOpen();
+                    localOpen();
                     oos.writeObject(command[0]);
                     oos.writeObject(transport);
                     oos.close();
@@ -95,17 +95,17 @@ public class TCPSender {
                         System.out.println("Могло произойти зацикливание при исполнении скрипта: " + command[1] + "\nКоманда не будет выполнена. Переход к следующей команде");
                     } else {
                         script = command[1];
-                        LocalOpen();
+                        localOpen();
                         oos.writeObject(command[0]);
                         oos.writeObject("mew");
                         oos.close();
-                        r.Receiver();
+                        receiver.receiver();
                         scripts.add(file1);
                         try (BufferedReader commandReader = new BufferedReader(new FileReader(file1))) {
                             String line = commandReader.readLine();
                             while (line != null) {
-                                b = Sender(line.split(" "));
-                                if(b) r.Receiver();
+                                if_correct_command = sender(line.split(" "));
+                                if(if_correct_command) receiver.receiver();
                                 line = commandReader.readLine();
                             }
                         } catch (IOException ex) {
@@ -117,7 +117,7 @@ public class TCPSender {
                 }
             } else System.out.println("Команда введена некорректно.");
         } else {
-            LocalOpen();
+            localOpen();
             oos.writeObject(command[0]);
             oos.writeObject("mew");
             oos.close();

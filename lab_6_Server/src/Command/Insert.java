@@ -21,7 +21,6 @@ public class Insert extends Command {
             return "Вы зачем такой ключ написали? Такой уже есть в коллекции...";
         flat.setId(getManager().getNowId());
         getManager().getHouses().put(key, flat);
-        getManager().save();
         return "Элемент добавлен.";
     }
 }

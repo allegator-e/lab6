@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class TCPServerSender{
     private String str;
-    private ServerSocket ss;
+    private ServerSocket serverSocket;
     private HashMap<String, Command> availableCommands = new HashMap<>();
     static Logger LOGGER;
     static {
@@ -25,10 +25,9 @@ public class TCPServerSender{
             ignore.printStackTrace();
         }
     }
-    public TCPServerSender(String str,ServerSocket ss ) {
+    public TCPServerSender(String str,ServerSocket serverSocket ) {
         this.str =str;
-        this.ss =ss;
-
+        this.serverSocket =serverSocket;
     };
     public HashMap<String, Command> getCommand()
     {
@@ -37,13 +36,14 @@ public class TCPServerSender{
     /**
     *Отправка данных клиенту
      */
-    public void Sender() {
+    public void sender() {
         try {
-            Socket s = ss.accept();
+            Socket s = serverSocket.accept();
             ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
             oos.writeObject(str);
             oos.flush();
-
+            oos.close();
+            s.close();
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Ошибка передачи данных" );
         }

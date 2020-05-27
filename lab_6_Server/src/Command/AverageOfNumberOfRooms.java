@@ -3,6 +3,7 @@ package Command;
 import TCPServer.CollectionManager;
 import Object.*;
 import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  *  вывести среднее значение поля numberOfRooms для всех элементов коллекции.
@@ -17,11 +18,9 @@ public class AverageOfNumberOfRooms extends Command {
     public String execute(Object args) {
         TreeMap<Integer, Flat> houses = getManager().getHouses();
         if (houses.size() != 0) {
-            float sum_number_of_rooms = 0;
-            for (Integer key : houses.keySet()) {
-                sum_number_of_rooms += houses.get(key).getNumberOfRooms();
-            }
-            return "Cреднее значение поля numberOfRooms для всех элементов коллекции: " + sum_number_of_rooms / houses.size();
+            return "Среднее значение поля numberOfRooms для всех элементов коллекции: " + houses.values().stream()
+                    .mapToInt(flat -> flat.getNumberOfRooms())
+                    .sum() / houses.size();
         } return "В коллекции отсутствуют элементы. Выполнение команды не возможно.";
     }
 }

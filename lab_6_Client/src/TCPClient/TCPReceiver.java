@@ -13,7 +13,7 @@ public class TCPReceiver {
     /**
      * Класс для получения данных с сервера
      */
-    public void Receiver() {
+    public void receiver() {
         try {
             String fromServer;
             SocketChannel ssChannel = SocketChannel.open(is);

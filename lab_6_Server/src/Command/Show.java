@@ -1,8 +1,11 @@
 package Command;
 
 import TCPServer.CollectionManager;
-import java.util.Iterator;
+
+import java.util.Comparator;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
+
 import Object.*;
 
 /**
@@ -16,14 +19,12 @@ public class Show extends Command {
 
     @Override
     public String execute(Object args) {
-        TreeMap<Integer, Flat> flat = getManager().getHouses();
+        TreeMap<Integer, Flat> houses = getManager().getHouses();
         String s = "";
-        if (flat.size() != 0) {
-            for (Iterator<Integer> it = flat.keySet().iterator(); it.hasNext();) {
-                Integer key = it.next();
-                s = s + "key: " + key + ", " + flat.get(key).toString() + "\n";
-            }
-            return s;
+        if (houses.size() != 0) {
+            return   houses.entrySet().stream()
+                    .map(element -> "key: " + element.getKey() + ", flat: " + element.getValue())
+                    .collect(Collectors.joining("\n"));
         }
         else return "В коллекции отсутствуют элементы. Выполнение команды невозможно.";
     }

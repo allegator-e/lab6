@@ -4,6 +4,7 @@ import Object.*;
 import TCPServer.CollectionManager;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * вывести количество элементов, значение поля transport которых равно заданному.
@@ -18,18 +19,11 @@ public class GroupCountingByCreationDate extends Command {
     public String execute(Object args) {
         TreeMap<Integer, Flat> houses = getManager().getHouses();
         if (houses.size() != 0) {
-            HashMap<LocalDateTime, Integer> creationDates = new HashMap<>();
-            for (Integer key : houses.keySet()) {
-                if (creationDates.containsKey(houses.get(key).getCreationDate())) {
-                    creationDates.replace(houses.get(key).getCreationDate(), creationDates.get(houses.get(key).getCreationDate()) + 1);
-                } else creationDates.put(houses.get(key).getCreationDate(), 1);
-            }
-            String s = "";
-            for(Iterator<LocalDateTime> it = creationDates.keySet().iterator() ; it.hasNext();){
-                LocalDateTime date= it.next();
-                s = s + date +": "+ creationDates.get(date) + "\n";
-            }
-            return s;
+            Map<LocalDateTime, Long> creationDates = houses.values().stream()
+                    .collect(Collectors.groupingBy(Flat::getCreationDate, Collectors.counting()));
+            return creationDates.keySet().stream()
+                    .map(date -> date + ": " + creationDates.get(date))
+                    .collect(Collectors.joining("\n"));
         } return "В коллекции отсутствуют элементы. Выполнение команды не возможно.";
     }
 }

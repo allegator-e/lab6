@@ -18,13 +18,11 @@ public class CountByTransport extends Command {
         TreeMap<Integer, Flat> houses = getManager().getHouses();
         Transport transport = (Transport) args;
         if (houses.size() != 0) {
-            int count_by_transport = 0;
-            for (Integer key : houses.keySet()) {
-                if (houses.get(key).getTransport().equals(transport))
-                    count_by_transport++;
+            return "Количество элементов, значение поля transport которых равно " + transport + ": " +
+                    houses.values().stream()
+                    .filter(flat -> flat.getTransport().equals(transport))
+                    .count();
             }
-            return "Количество элементов, значение поля transport которых равно " + transport + ": " + count_by_transport;
-        }
         return "В коллекции отсутствуют элементы. Выполнение команды не возможно.";
     }
 }

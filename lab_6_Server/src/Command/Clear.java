@@ -14,7 +14,6 @@ public class Clear extends Command{
     @Override
     public String execute(Object args) {
         getManager().getHouses().clear();
-        getManager().save();
         return "Коллекция пуста.";
     }
 }

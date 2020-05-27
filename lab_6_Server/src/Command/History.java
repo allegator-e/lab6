@@ -1,16 +1,14 @@
 package Command;
 
 import TCPServer.CollectionManager;
+import TCPServer.TCPServerConnect;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import TCPServer.TCPServerConnect;
 
 /**
  * вывести последние 9 команд (без их аргументов).
  */
 public class History extends Command {
-    public static ArrayList<String> history = new ArrayList<>();
     public History(CollectionManager manager) {
         super(manager);
         setDescription("вывести последние 9 команд (без их аргументов).");
@@ -18,13 +16,11 @@ public class History extends Command {
 
     @Override
     public String execute(Object args) {
-        String s = "";
+        ArrayList<String> history = (ArrayList<String>) args;
         if(!history.isEmpty()) {
-            for (Iterator<String> it = history.iterator(); it.hasNext(); ) {
-                String command = it.next();
-                s = s + command + "\n";
-            }
+            return String.join("\n", history);
         }
-        return s;
+        return "";
     }
+
 }
