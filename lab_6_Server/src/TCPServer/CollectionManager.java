@@ -7,10 +7,8 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import java.io.*;
 import java.time.*;
 import java.util.*;
@@ -28,7 +26,7 @@ public class CollectionManager {
             LogManager.getLogManager().readConfiguration(ins);
             LOGGER = Logger.getLogger(CollectionManager.class.getName());
         }catch (Exception ignore){
-            ignore.printStackTrace();
+            //ignore.printStackTrace();
         }
     }
 
