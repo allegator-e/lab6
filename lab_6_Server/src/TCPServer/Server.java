@@ -17,12 +17,8 @@ public class Server {
     public static void main(String[] args) {
         ArrayList<String> history = new ArrayList<>();
         Logger LOGGER = Logger.getLogger(Server.class.getName());
-        try (FileInputStream ins = new FileInputStream("lib/log.config")) {
-            LogManager.getLogManager().readConfiguration(ins);
-        } catch (Exception ignore) {
-            //ignore.printStackTrace();
-        }
         try {
+            CollectionManager serverCollection = new CollectionManager(args[0]);
             Scanner commandReader = new Scanner(System.in);
             System.out.println("Введите Порт");
             Integer port = 0;
@@ -40,7 +36,6 @@ public class Server {
             server.bind(new InetSocketAddress(port));
             server.configureBlocking(false);
             server.register(selector, SelectionKey.OP_ACCEPT);
-            CollectionManager serverCollection = new CollectionManager(args[0]);
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                 serverCollection.save();
                 try {
@@ -107,7 +102,11 @@ public class Server {
                         LOGGER.log(Level.FINE, "Команда обработана");
                     } else if (key.isWritable()) {
                         TCPServerSender sender = new TCPServerSender(str, key);
-                        LOGGER.log(Level.FINE, "Результат выполнения отправлен клиенту");
+                        if(command.equals("execute_script") || availableCommands.containsKey(command))
+                            history.add(command);
+                        if (history.size() > 9)
+                            history.remove(0);
+                        LOGGER.log(Level.FINE, "Команда добавлена в историю. Результат выполнения отправлен клиенту");
                         sender.write();
                         LOGGER.log(Level.INFO, "Окончание соединения.");
                     }

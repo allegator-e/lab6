@@ -19,9 +19,11 @@ public class RemoveKey extends Command {
         Integer key = (Integer)args;
         TreeMap<Integer, Flat> houses = getManager().getHouses();
         if (houses.size() != 0) {
-            houses.keySet().stream()
-                    .filter(key_in_collection -> key_in_collection.equals(key)).collect(Collectors.toSet()).forEach(houses::remove);
-            return "Команда успешно выполнена.";
-        } else return "В коллекции отсутствуют элементы. Выполнение команды не возможно.";
+            if (houses.keySet().stream().anyMatch(key_in_collection -> key_in_collection.equals(key))) {
+                houses.keySet().stream().filter(key_in_collection -> key_in_collection.equals(key)).collect(Collectors.toSet()).forEach(houses::remove);
+                return "Команда успешно выполнена.";
+            }
+            return("В коллекции не найдено элементов с соответствующими ключами.");
+        } else return ("В коллекции отсутствуют элементы. Выполнение команды не возможно.");
     }
 }

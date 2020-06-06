@@ -33,7 +33,7 @@ public class TCPSender {
     }
 
     public boolean checker(String[] command) throws IOException {
-        if (command[0].equals("insert") || command[0].equals("update")) {
+        if (command[0].equals("insert") || command[0].equals("update_id")) {
             if (command.length == 2) {
                 try {
                     key = Integer.parseInt(command[1]);

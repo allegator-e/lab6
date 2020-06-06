@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -49,6 +50,8 @@ public class TCPClientConnect {
             }
         }catch (UnresolvedAddressException e){
             System.out.println("Ошибка инициализации хоста.");
+        }catch (NoSuchElementException e){
+            System.out.println("Ну блин, только начали же, куда вы уходите?");
         }
     }
 }

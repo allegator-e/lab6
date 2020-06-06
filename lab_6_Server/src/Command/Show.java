@@ -3,6 +3,8 @@ package Command;
 import TCPServer.CollectionManager;
 
 import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -22,9 +24,12 @@ public class Show extends Command {
         TreeMap<Integer, Flat> houses = getManager().getHouses();
         String s = "";
         if (houses.size() != 0) {
-            return   houses.entrySet().stream()
+            List<Map.Entry<Integer, Flat>> list = houses.entrySet().stream()
+                    .sorted(Comparator.comparing(element -> (element.getValue().getName())))
+                    .collect(Collectors.toList());
+            return   list.stream()
                     .map(element -> "key: " + element.getKey() + ", flat: " + element.getValue())
-                    .collect(Collectors.joining("\n"));
+                    .collect(Collectors.joining("\n\n"));
         }
         else return "В коллекции отсутствуют элементы. Выполнение команды невозможно.";
     }

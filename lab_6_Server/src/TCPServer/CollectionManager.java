@@ -22,12 +22,7 @@ public class CollectionManager {
     static Logger LOGGER;
     private static java.util.logging.LogManager LogManager;
     static {
-        try(FileInputStream ins = new FileInputStream("lib/log.config")){
-            LogManager.getLogManager().readConfiguration(ins);
-            LOGGER = Logger.getLogger(CollectionManager.class.getName());
-        }catch (Exception ignore){
-            //ignore.printStackTrace();
-        }
+        LOGGER = Logger.getLogger(CollectionManager.class.getName());
     }
 
     public CollectionManager(String collectionPath)  {

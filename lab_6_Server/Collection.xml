@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flats>
   <Flat key="-5">
-    <id>6380</id>
-    <name>hataInYaroslavl</name>
+    <id>0</id>
+    <name>q</name>
     <Coordinates>
-      <x>5.0</x>
-      <y>8</y>
+      <x>1.0</x>
+      <y>1</y>
     </Coordinates>
-    <creationDate>2020-05-27T23:56:25.222</creationDate>
-    <area>43</area>
-    <numberOfRooms>3</numberOfRooms>
-    <furnish>FINE</furnish>
-    <view>STREET</view>
+    <creationDate>2020-06-06T01:41:10.760</creationDate>
+    <area>1</area>
+    <numberOfRooms>1</numberOfRooms>
+    <furnish>null</furnish>
+    <view>null</view>
     <transport>FEW</transport>
     <House>
-      <name>norm</name>
-      <year>18</year>
-      <numberOfFloors>9</numberOfFloors>
-      <numberOfFlatsOnFloor>10</numberOfFlatsOnFloor>
+      <name>q</name>
+      <year>1</year>
+      <numberOfFloors>1</numberOfFloors>
+      <numberOfFlatsOnFloor>1</numberOfFlatsOnFloor>
     </House>
   </Flat>
   <Flat key="0">
@@ -78,26 +78,6 @@
       <year>19</year>
       <numberOfFloors>12</numberOfFloors>
       <numberOfFlatsOnFloor>12</numberOfFlatsOnFloor>
-    </House>
-  </Flat>
-  <Flat key="101">
-    <id>6380</id>
-    <name>oleg</name>
-    <Coordinates>
-      <x>1.0</x>
-      <y>1</y>
-    </Coordinates>
-    <creationDate>2020-06-03T01:23:31.359</creationDate>
-    <area>1</area>
-    <numberOfRooms>1</numberOfRooms>
-    <furnish>null</furnish>
-    <view>BAD</view>
-    <transport>FEW</transport>
-    <House>
-      <name>little_boy</name>
-      <year>1</year>
-      <numberOfFloors>1</numberOfFloors>
-      <numberOfFlatsOnFloor>1</numberOfFlatsOnFloor>
     </House>
   </Flat>
   <Flat key="100500">

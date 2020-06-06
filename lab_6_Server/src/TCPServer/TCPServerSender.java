@@ -16,12 +16,7 @@ public class TCPServerSender{
     private HashMap<String, Command> availableCommands = new HashMap<>();
     static Logger LOGGER;
     static {
-        try(FileInputStream ins = new FileInputStream("lib/log.config")){
-            LogManager.getLogManager().readConfiguration(ins);
-            LOGGER = Logger.getLogger(TCPServerSender.class.getName());
-        }catch (Exception ignore){
-            //ignore.printStackTrace();
-        }
+        LOGGER = Logger.getLogger(TCPServerSender.class.getName());
     }
     public TCPServerSender(String str, SelectionKey key) {
         this.str =str;

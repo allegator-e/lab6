@@ -19,7 +19,7 @@ public class TCPReceiver {
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             String stroka = (String) ois.readObject();
             ois.close();
-            System.out.println("Good job, gotten: " + stroka);
+            System.out.println(stroka);
         }catch (IOException|ClassNotFoundException e) {
             System.out.println("В процессе получения данных с сервера возникла ошибка.");
         }

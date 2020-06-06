@@ -21,8 +21,11 @@ public class RemoveGreater extends Command{
         TreeMap<Integer, Flat> houses = getManager().getHouses();
         Flat flat = (Flat) args;
         if (houses.size() != 0) {
-            houses.keySet().stream().filter(key -> houses.get(key).compareTo(flat) > 0).collect(Collectors.toSet()).forEach(houses::remove);
-            return "Команда успешно выполнена.";
-        } return "В коллекции отсутствуют элементы. Выполнение команды не возможно.";
+            if (houses.keySet().stream().anyMatch(key -> houses.get(key).compareTo(flat) > 0)) {
+                houses.keySet().stream().filter(key -> houses.get(key).compareTo(flat) > 0).collect(Collectors.toSet()).forEach(houses::remove);
+                return "Команда успешно выполнена.";
+            }
+            return("В коллекции не найдено соответствующих элементов.");
+        } else return ("В коллекции отсутствуют элементы. Выполнение команды не возможно.");
     }
 }
